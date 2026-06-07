@@ -1,0 +1,6 @@
+{
+  "name": "Electricity & Rent Billing Auditor",
+  "description": "Calculates room-wise electricity and rent bills by distributing main meter discrepancy and motor consumption mathematically.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
