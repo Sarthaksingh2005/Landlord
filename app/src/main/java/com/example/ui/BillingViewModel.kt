@@ -363,6 +363,36 @@ class BillingViewModel(application: Application) : AndroidViewModel(application)
                 currR6 = ""
                 currMotor = ""
 
+                rate = latest.rate.toString()
+
+                tenant1 = latest.tenant1
+                tenant2 = latest.tenant2
+                tenant3 = latest.tenant3
+                tenant4 = latest.tenant4
+                tenant5 = latest.tenant5
+                tenant6 = latest.tenant6
+
+                sweeper1 = latest.sweeper1.toString()
+                sweeper2 = latest.sweeper2.toString()
+                sweeper3 = latest.sweeper3.toString()
+                sweeper4 = latest.sweeper4.toString()
+                sweeper5 = latest.sweeper5.toString()
+                sweeper6 = latest.sweeper6.toString()
+
+                rent1 = latest.rent1.toString()
+                rent2 = latest.rent2.toString()
+                rent3 = latest.rent3.toString()
+                rent4 = latest.rent4.toString()
+                rent5 = latest.rent5.toString()
+                rent6 = latest.rent6.toString()
+
+                custom1 = latest.custom1.toString()
+                custom2 = latest.custom2.toString()
+                custom3 = latest.custom3.toString()
+                custom4 = latest.custom4.toString()
+                custom5 = latest.custom5.toString()
+                custom6 = latest.custom6.toString()
+
                 performCalculation()
             }
         }

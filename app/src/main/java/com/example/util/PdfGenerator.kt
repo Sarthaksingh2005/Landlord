@@ -543,13 +543,13 @@ object PdfGenerator {
         canvas.drawText("TOTAL AMOUNT DUE:", 55f, y + 41f, grandTotalTextPaint)
         canvas.drawText("₹${String.format("%,.2f", result.totalBill)}", pageWidth - 190f, y + 45f, grandTotalValuePaint)
 
-        // DUE label watermarked in red
+        // DUE label watermarked in red (drawn inside the total due box to avoid overlapping)
         val dueLabelPaint = Paint().apply {
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
             textSize = 28f
             color = Color.parseColor("#15BA1A1A") // Extremely transparent red watermark
         }
-        canvas.drawText("UNPAID / DUE", pageWidth - 210f, y - 10f, dueLabelPaint)
+        canvas.drawText("UNPAID / DUE", 240f, y + 44f, dueLabelPaint)
 
         // Advance past Total Due Box (starts at y, ends at y+70f). Make y change by 70f + 60f margin = 130f
         y += 130f

@@ -821,9 +821,39 @@ fun MeterInputsTab(
                                 viewModel.currR5 = ""
                                 viewModel.currR6 = ""
                                 viewModel.currMotor = ""
+
+                                viewModel.rate = latest.rate.toString()
+
+                                viewModel.tenant1 = latest.tenant1
+                                viewModel.tenant2 = latest.tenant2
+                                viewModel.tenant3 = latest.tenant3
+                                viewModel.tenant4 = latest.tenant4
+                                viewModel.tenant5 = latest.tenant5
+                                viewModel.tenant6 = latest.tenant6
+
+                                viewModel.rent1 = latest.rent1.toString()
+                                viewModel.rent2 = latest.rent2.toString()
+                                viewModel.rent3 = latest.rent3.toString()
+                                viewModel.rent4 = latest.rent4.toString()
+                                viewModel.rent5 = latest.rent5.toString()
+                                viewModel.rent6 = latest.rent6.toString()
+
+                                viewModel.sweeper1 = latest.sweeper1.toString()
+                                viewModel.sweeper2 = latest.sweeper2.toString()
+                                viewModel.sweeper3 = latest.sweeper3.toString()
+                                viewModel.sweeper4 = latest.sweeper4.toString()
+                                viewModel.sweeper5 = latest.sweeper5.toString()
+                                viewModel.sweeper6 = latest.sweeper6.toString()
+
+                                viewModel.custom1 = latest.custom1.toString()
+                                viewModel.custom2 = latest.custom2.toString()
+                                viewModel.custom3 = latest.custom3.toString()
+                                viewModel.custom4 = latest.custom4.toString()
+                                viewModel.custom5 = latest.custom5.toString()
+                                viewModel.custom6 = latest.custom6.toString()
                                 
                                 viewModel.performCalculation()
-                                Toast.makeText(context, "Welcome to $nextMonth! Previous readings loaded from ${latest.billingMonth} currents.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context, "Welcome to $nextMonth! Previous readings and metadata loaded from ${latest.billingMonth} currents.", Toast.LENGTH_LONG).show()
                             },
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.fillMaxWidth(),
@@ -2084,12 +2114,12 @@ fun SavedHistoryTab(
                             Text("AUDITED ROOM OCCUPANTS", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.secondary)
                             
                             val tenantsList = listOf(
-                                "R1: ${if (record.tenant1.isBlank() || record.tenant1.equals("vacant", ignoreCase = true)) "VACANT" else record.tenant1}",
-                                "R2: ${if (record.tenant2.isBlank() || record.tenant2.equals("vacant", ignoreCase = true)) "VACANT" else record.tenant2}",
-                                "R3: ${if (record.tenant3.isBlank() || record.tenant3.equals("vacant", ignoreCase = true)) "VACANT" else record.tenant3}",
-                                "R4: ${if (record.tenant4.isBlank() || record.tenant4.equals("vacant", ignoreCase = true)) "VACANT" else record.tenant4}",
-                                "R5: ${if (record.tenant5.isBlank() || record.tenant5.equals("vacant", ignoreCase = true)) "VACANT" else record.tenant5}",
-                                "R6: ${if (record.tenant6.isBlank() || record.tenant6.equals("vacant", ignoreCase = true)) "VACANT" else record.tenant6}"
+                                "R1: ${if (record.tenant1.isBlank() || record.tenant1.equals("vacant", ignoreCase = true)) "VACANT" else "${record.tenant1} (₹${record.rent1.toInt()})"}",
+                                "R2: ${if (record.tenant2.isBlank() || record.tenant2.equals("vacant", ignoreCase = true)) "VACANT" else "${record.tenant2} (₹${record.rent2.toInt()})"}",
+                                "R3: ${if (record.tenant3.isBlank() || record.tenant3.equals("vacant", ignoreCase = true)) "VACANT" else "${record.tenant3} (₹${record.rent3.toInt()})"}",
+                                "R4: ${if (record.tenant4.isBlank() || record.tenant4.equals("vacant", ignoreCase = true)) "VACANT" else "${record.tenant4} (₹${record.rent4.toInt()})"}",
+                                "R5: ${if (record.tenant5.isBlank() || record.tenant5.equals("vacant", ignoreCase = true)) "VACANT" else "${record.tenant5} (₹${record.rent5.toInt()})"}",
+                                "R6: ${if (record.tenant6.isBlank() || record.tenant6.equals("vacant", ignoreCase = true)) "VACANT" else "${record.tenant6} (₹${record.rent6.toInt()})"}"
                             )
                             
                             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -2103,7 +2133,7 @@ fun SavedHistoryTab(
                                             )
                                             .padding(horizontal = 6.dp, vertical = 4.dp)
                                     ) {
-                                        Text(text = tenantsList[col], style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                        Text(text = tenantsList[col], style = MaterialTheme.typography.labelSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                     }
                                 }
                             }
@@ -2118,7 +2148,7 @@ fun SavedHistoryTab(
                                             )
                                             .padding(horizontal = 6.dp, vertical = 4.dp)
                                     ) {
-                                        Text(text = tenantsList[col], style = MaterialTheme.typography.labelSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                        Text(text = tenantsList[col], style = MaterialTheme.typography.labelSmall, maxLines = 2, overflow = TextOverflow.Ellipsis)
                                     }
                                 }
                             }
@@ -2492,27 +2522,86 @@ fun TenantsTab(
                     ) {
                         Column(
                             modifier = Modifier.padding(12.dp),
-                            verticalArrangement = Arrangement.spacedBy(6.dp)
+                            verticalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            Text("ROOM STANDARD METADATA", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                            Text("ROOM STANDARD METADATA (EDITABLE)", style = MaterialTheme.typography.labelSmall, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                             HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
                             
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                Text("Active Tenant", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(if (isVacant) "VACANT" else tenantName, style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Bold)
+                            OutlinedTextField(
+                                value = tenantName,
+                                onValueChange = { newValue ->
+                                    when (roomNum) {
+                                        1 -> viewModel.tenant1 = newValue
+                                        2 -> viewModel.tenant2 = newValue
+                                        3 -> viewModel.tenant3 = newValue
+                                        4 -> viewModel.tenant4 = newValue
+                                        5 -> viewModel.tenant5 = newValue
+                                        else -> viewModel.tenant6 = newValue
+                                    }
+                                },
+                                label = { Text("Active Tenant Name") },
+                                singleLine = true,
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                OutlinedTextField(
+                                    value = rentAmount,
+                                    onValueChange = { newValue ->
+                                        when (roomNum) {
+                                            1 -> viewModel.rent1 = newValue
+                                            2 -> viewModel.rent2 = newValue
+                                            3 -> viewModel.rent3 = newValue
+                                            4 -> viewModel.rent4 = newValue
+                                            5 -> viewModel.rent5 = newValue
+                                            else -> viewModel.rent6 = newValue
+                                        }
+                                    },
+                                    label = { Text("Rent (₹)") },
+                                    singleLine = true,
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                                    shape = RoundedCornerShape(10.dp),
+                                    modifier = Modifier.weight(1f)
+                                )
+                                OutlinedTextField(
+                                    value = sweeperAmount,
+                                    onValueChange = { newValue ->
+                                        when (roomNum) {
+                                            1 -> viewModel.sweeper1 = newValue
+                                            2 -> viewModel.sweeper2 = newValue
+                                            3 -> viewModel.sweeper3 = newValue
+                                            4 -> viewModel.sweeper4 = newValue
+                                            5 -> viewModel.sweeper5 = newValue
+                                            else -> viewModel.sweeper6 = newValue
+                                        }
+                                    },
+                                    label = { Text("Sweeper (₹)") },
+                                    singleLine = true,
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                                    shape = RoundedCornerShape(10.dp),
+                                    modifier = Modifier.weight(1f)
+                                )
                             }
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                Text("Standard Rent", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text("₹$rentAmount", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                            }
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                Text("Sweeper Fee", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text("₹$sweeperAmount", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                            }
-                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                                Text("Custom Fee", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text("₹$customAmount", style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.Medium)
-                            }
+                            
+                            OutlinedTextField(
+                                value = customAmount,
+                                onValueChange = { newValue ->
+                                    when (roomNum) {
+                                        1 -> viewModel.custom1 = newValue
+                                        2 -> viewModel.custom2 = newValue
+                                        3 -> viewModel.custom3 = newValue
+                                        4 -> viewModel.custom4 = newValue
+                                        5 -> viewModel.custom5 = newValue
+                                        else -> viewModel.custom6 = newValue
+                                    }
+                                },
+                                label = { Text("Custom Fee (₹)") },
+                                singleLine = true,
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                                shape = RoundedCornerShape(10.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            )
                         }
                     }
 
